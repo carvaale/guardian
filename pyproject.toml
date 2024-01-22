@@ -2,7 +2,7 @@
 name = "guardian"
 version = "0.1.0"
 description = ""
-authors = ["Alex Carvalho <alexander_sck@live.ca>"]
+authors = ["Alex Carvalho <alexander_sck@live.ca>", "Imran Yafith <imranyafith@gmail.com>", "Deeptanshu Sanghani <deeptanshusanghani@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
