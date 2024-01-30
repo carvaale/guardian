@@ -20,7 +20,7 @@ or
 
 1. Activate the virtual environment by running `venv\Scripts\activate`
 2. cd into `../guardian/backend`
-3. Run `uvicorn app:app --reload` to start the backend server
+3. Run `uvicorn backend.app:app --reload` to start the backend server
 
 ### Frontend
 

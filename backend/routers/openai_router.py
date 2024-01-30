@@ -1,12 +1,16 @@
-from fastapi import FastAPI, HTTPException,APIRouter 
-import requests
-#did pip install requests in terminal
-router = APIRouter(prefix="/openai")
+from fastapi import APIRouter
+from starlette.responses import JSONResponse
 
-@router.get("/generate")
-async def generate_data():
-    try:
-        return {"status 200": "guardian is running"}
-    
-    except requests.RequestException as e:
-        raise HTTPException(status_code=400, detail=str(e))
+from backend.exceptions import OpenAIRouteExceptionHandler
+from backend.providers.openai import OpenAIWrapper
+
+router = APIRouter(route_class=OpenAIRouteExceptionHandler)
+
+
+@router.post("/generate")
+def generate_data() -> JSONResponse:
+    """ """
+
+    openai = OpenAIWrapper()
+
+    return JSONResponse({"status 200": "guardian is running"})
