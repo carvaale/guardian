@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+import routers.openai_router as openai_router
 
 
 app = FastAPI()
@@ -12,6 +12,8 @@ app.title = "guardian api"
 app.description = "XXX"
 
 app.mount("/api", api, name="api")
+
+app.include_router(openai_router.router)
 
 # Allow Front-end Origin in local development
 origins = ["http://localhost:5173"]
