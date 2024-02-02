@@ -4,7 +4,7 @@ from gpt4all import GPT4All
 
 
 class Anonymizer:
-    def anonymize_input(prompt: str, max_tokens: int = 100) -> str:
+    def anonymize_input(self, prompt: str, max_tokens: int = 100) -> str:
         """Anonymize nouns within a given prompt.
 
         :param prompt: The prompt to anonymize.
