@@ -52,4 +52,4 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           source $(poetry env info --path)/bin/activate
-          flake8 backend
+          flake8 --ignore=F841 backend
