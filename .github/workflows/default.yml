@@ -21,7 +21,7 @@ jobs:
       - uses: dorny/paths-filter@v2
         id: check-files
         with:
-          filter: |
+          filters: |
             backend_modified:
               - 'backend/**'
               - pyproject.toml
