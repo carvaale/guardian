@@ -1,6 +1,3 @@
-""" isort:skip_file
-"""
-
 from fastapi.routing import APIRoute, HTTPException, Request
 from openai._exceptions import (
     APIConnectionError,
