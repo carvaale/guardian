@@ -1,6 +1,3 @@
-""" isort:skip_file
-"""
-
 from fastapi.routing import APIRoute, HTTPException, Request
 from openai._exceptions import (
     APIConnectionError,
@@ -30,11 +27,13 @@ class OpenAIRouteExceptionHandler(APIRoute):
 
         async def exception_handler(request: Request) -> JSONResponse:
             """
-            Catch OpenAI exceptions and return an internal server error response.
+            Catch OpenAI exceptions and return an internal server
+            error response.
 
             :param request: The request object
             :type request: Request
-            :return: Response or Internal server error response with error message
+            :return: Response or Internal server error response with
+            error message
             :rtype: JSONResponse
             """
             try:
