@@ -9,6 +9,7 @@ import Register from './pages/Authentication/Register.tsx'
 import Home from './pages/Home.tsx'
 import Login from './pages/Authentication/Login.tsx'
 import ForgotPassword from './pages/Authentication/ForgotPassword.tsx'
+import ChatBotPage from './pages/ChatBotPage.tsx'
 
 
 
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             path:"/",
             element:<Home />,
           },
+          {
+            path:"/chatbox",
+            element:<ChatBotPage />,
+          }
 
         ],
       }
