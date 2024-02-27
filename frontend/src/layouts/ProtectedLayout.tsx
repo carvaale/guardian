@@ -6,7 +6,6 @@ const ProtectedLayout = () => {
     let {user} = useAuth();
     return (
         user ? <Outlet /> : <Navigate to="/login" />
-       
     );
 };
 

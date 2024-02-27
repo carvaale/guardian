@@ -1,12 +1,4 @@
 repos:
-# -   repo: local
-#     hooks:
-#     -   id: gitleaks
-#         name: 'gitleaks'
-#         entry: 'gitleaks protect --verbose --redact --staged'
-#         language: system
-#         verbose: true
-#         pass_filenames: false
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v3.2.0
     hooks:
@@ -24,3 +16,10 @@ repos:
     hooks:
     -   id: isort
         name: isort (python)
+-   repo: https://github.com/pycqa/flake8
+    rev: "6.1.0"
+    hooks:
+    -   id: flake8
+        args: [
+            --max-line-length, "79"
+        ]

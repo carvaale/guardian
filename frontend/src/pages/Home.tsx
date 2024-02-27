@@ -10,10 +10,6 @@ const Home = () => {
             Home Only protected people should have access to this
         </h1>
     </div>
-
-
-
-    
     
 
     </>

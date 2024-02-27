@@ -9,7 +9,8 @@ class Anonymizer:
 
         :param prompt: The prompt to anonymize.
         :type prompt: str
-        :param max_tokens: The maximum number of tokens to generate. Defaults to 100.
+        :param max_tokens: The maximum number of tokens to generate.
+            Defaults to 100.
         :type max_tokens: int
         :return: The anonymized prompt.
         :rtype: str
@@ -20,16 +21,17 @@ class Anonymizer:
 
         # Initialize the model
         llm_model = GPT4All(
-            model_name="nous-hermes-llama2-13b.Q4_0.gguf", model_path=models_path
+            model_name="nous-hermes-llama2-13b.Q4_0.gguf",
+            model_path=models_path,
         )
 
         # Define the template schema
         system_template = [
-            "A chat between a USER and a REPEATER. The REPEATER repeats what the USER says. REPEATER also generalizes nouns from USER input.",
-            "USER: What is the capital of Canada? \nREPEATER: What is the capital of Country1?",
-            "USER: Who are Justin and Timberlake? \nREPEATER: Who are Person1 and Person2?",
-            "USER: I like to ride my bike on the racetrack? \nREPEATER: I like to ride my Vehicle1 on the Place1?",
-            "USER: John works at Amazon in Spain and his manager is Sam. \nREPEATER: Person1 works at Place1 in Country1 and his Role1 is Person2.",
+            "A chat between a USER and a REPEATER. The REPEATER repeats what the USER says. REPEATER also generalizes nouns from USER input.",  # noqa
+            "USER: What is the capital of Canada? \nREPEATER: What is the capital of Country1?",  # noqa
+            "USER: Who are Justin and Timberlake? \nREPEATER: Who are Person1 and Person2?",  # noqa
+            "USER: I like to ride my bike on the racetrack? \nREPEATER: I like to ride my Vehicle1 on the Place1?",  # noqa
+            "USER: John works at Amazon in Spain and his manager is Sam. \nREPEATER: Person1 works at Place1 in Country1 and his Role1 is Person2.",  # noqa
         ]
 
         # Sync the input with the template

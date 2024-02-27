@@ -1,4 +1,3 @@
-
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../layouts/AuthContext";
@@ -38,9 +37,6 @@ export default function RegisterComponent() {
       console.error("Form not found ")
     }
   }
-
-
-
 
 
     const navigate = useNavigate();
