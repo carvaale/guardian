@@ -1,14 +1,11 @@
 
-import { Outlet } from "react-router-dom";
-
+import { Outlet, Navigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
+ 
 const ProtectedLayout = () => {
-
+    let {user} = useAuth();
     return (
-        <>
-        <div className="">
-        <Outlet />
-        </div>
-        </>
+        user ? <Outlet /> : <Navigate to="/login" />
     );
 };
 
