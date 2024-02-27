@@ -1,3 +1,5 @@
+from sqlite3 import connect as sqlite_connect
+
 from openai import OpenAI
 
 from backend.utils.anonymizer import Anonymizer
@@ -25,7 +27,14 @@ class OpenAIWrapper:
 
     def _save_to_db(self, response: str) -> None:
         """ """
-        pass
+        db_conn = sqlite_connect("guardian.db")
+        db_cursor = db_conn.cursor()
+
+        db_cursor.execute(
+            "INSERT INTO openai_responses (response) VALUES (?)", (response,)
+        )
+
+        db_conn.commit()
 
     def generate(
         self,
