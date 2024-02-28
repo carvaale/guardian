@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
 
 from backend.routers import llm_router
 
@@ -14,6 +15,7 @@ api.include_router(llm_router.router, prefix="/openai")
 
 app.mount("/api", api, name="api")
 
+load_dotenv()
 
 # Allow Front-end Origin in local development
 origins = ["http://localhost:5173"]

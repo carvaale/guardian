@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../layouts/AuthContext";
 
 export default function RegisterComponent() {
@@ -39,11 +38,6 @@ export default function RegisterComponent() {
   }
 
 
-    const navigate = useNavigate();
-
-    const navigateToLogin = () => {
-        navigate("/");
-    }
   
     return (
       <>
