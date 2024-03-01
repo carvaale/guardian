@@ -10,6 +10,8 @@ import Home from './pages/Home.tsx';
 import Login from './pages/Authentication/Login.tsx';
 import ChatBotPage from './pages/ChatBotPage.tsx';
 import ForgotPassword from './pages/Authentication/ForgotPassword.tsx';
+import DataLeakAnalytics from './pages/DataLeakAnalytics.tsx';
+import AuthLayout from './layouts/AuthLayout.tsx';
 
 
 
@@ -19,17 +21,17 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <AuthProvider>
           <RootLayout/>
           <Routes>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/register" element={<Register/>}/>
-            <Route path="/forgot-password" element={<ForgotPassword/>}/>
-            
-            <Route path="/chat" element={<ChatBotPage/>}/>
-            <Route element={<ProtectedLayout />}>
-              <Route path="/" element={<Home/>}/>
-              
-              
-            </Route>
-          </Routes>
+                <Route element={ <AuthLayout/>}>
+                <Route path="/login" element={<Login/>}/>
+                <Route path="/register" element={<Register/>}/>
+                <Route path="/forgot-password" element={<ForgotPassword/>}/>
+                </Route>
+                <Route path='data-leak' element={<DataLeakAnalytics/>}/>
+                <Route path="/chat" element={<ChatBotPage/>}/>
+                <Route element={<ProtectedLayout />}>
+                  <Route path="/" element={<Home/>}/>
+                </Route>
+              </Routes>
         </AuthProvider>
     </Router>
   </React.StrictMode>,

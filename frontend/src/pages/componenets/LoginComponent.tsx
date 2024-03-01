@@ -21,7 +21,7 @@ export default function LoginComponent() {
       if(user){
         navigate("/Home");
       } 
-    },[])
+    })
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,13 +42,7 @@ export default function LoginComponent() {
       }
     }
 
-  const navigateToRegister = () => {
-      navigate("/register");
-  }
 
-  const navigateToForgotPassword = () => {
-      navigate("/forgot-password");
-  }
   return (
     <>
 <div className="flex min-h-screen items-center justify-center p-12">
@@ -57,7 +51,7 @@ export default function LoginComponent() {
       <div className="rounded-[calc(1.5rem-1px)] bg-white px-10 p-12 dark:bg-gray-900">
         <div>
           <h1 className="text-xl font-semibold text-gray-800 dark:text-white">Signin to your account</h1>
-            <p className="text-sm tracking-wide text-gray-600 dark:text-gray-300">Don't have an account ? <a href="" onClick={navigateToRegister} className="text-blue-600 transition duration-200 hover:underline dark:text-blue-400">Signup</a> for free</p>
+            <p className="text-sm tracking-wide text-gray-600 dark:text-gray-300">Don't have an account ? <a href="" onClick={()=> navigate("/register")} className="text-blue-600 transition duration-200 hover:underline dark:text-blue-400">Signup</a> for free</p>
         </div>
 
         <div className="mt-8 space-y-8">
@@ -71,7 +65,7 @@ export default function LoginComponent() {
             Login
           </button>
           {error && <p>{error.value}</p>}
-          <p className="text-sm tracking-wide text-gray-600 dark:text-gray-300"><a href="" onClick={navigateToForgotPassword} className="flex items-center justify-center text-blue-600 transition duration-200 hover:underline dark:text-blue-400">Forgot your password?</a></p>
+          <p className="text-sm tracking-wide text-gray-600 dark:text-gray-300"><a href="" onClick={()=> navigate("/forgot-password")} className="flex items-center justify-center text-blue-600 transition duration-200 hover:underline dark:text-blue-400">Forgot your password?</a></p>
         </div>
       </div>
     </div>
