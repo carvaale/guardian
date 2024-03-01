@@ -67,10 +67,6 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
     return user_info
 
 
-def logout():
-    pass
-
-
 def hash_password(password: str):
     return bcrypt_context.hash(password)
 
