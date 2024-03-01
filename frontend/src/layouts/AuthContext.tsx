@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const checkUserStatus = async () => {
         try{
-            let token = localStorage.getItem('userToken');
+            const token = localStorage.getItem('userToken');
             setUser(token)
         }
         catch(error){

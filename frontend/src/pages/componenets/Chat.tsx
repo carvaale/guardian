@@ -1,210 +1,108 @@
-import * as React from 'react';
-import '../../index.css';
-console.clear();
-//Added package npm install --save-dev tailwind-scrollbar
-const messages = [
-    {
-        author: 'loading',
-        body: '...',
-        timeout: 0
-    },
-    {
-        author: 'bot',
-        body: 'Hello there!,',  
-        timeout: 800
-    },
-    {
-        author: 'bot',
-        body: 'I am a simple chat bot, here to help you with any questions you may have',
-        timeout: 1500
+import React, { useRef, useState, useEffect } from 'react';
+import 'tailwind-scrollbar'; 
+
+const Chat = () => {
+    interface Conversation {
+        role: string;
+        content: string;
     }
 
+    // States
+    const [value, setValue] = useState<string>("");
+    const [conversation, setConversation] = useState<Conversation[]>([]);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const chatContainerRef = useRef<HTMLDivElement>(null);
+    
+    useEffect(() => {
+        if (chatContainerRef.current) {
+          chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+      }, [conversation]);
 
-];
+    const handleInput = React.useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            setValue(e.target.value);
+        }, []
+    );
 
-const responses = [
-    'This bot silly',
-    'No really, its a gimic, quickly made in my Codepen',
-    [
-        'Ok here is a joke...',
-        'When Alexander Graham Bell invented the telephone he had three missed calls from Chuck Norris'
-    ],
-    [
-        'Want another? Ok last one...',
-        'Chuck Norris can win a game of Connect 4 with 3 moves'
-    ],
-    'I\'m out, good bye.',
-    [
-        'Joe Momma',
-    ],
-    ['Hello'],
-    ['How'],
-    ['you'],
-    ['why'],
-    ['are'],
-    ['you'],
-    ['so'],
-    ['silly'],
-    ['?'],
-];
+    const handleKeyDown = async(e:React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            const botMessage = { role: 'bot', content: getBotResponse(value) };
+            const chatHistory= [...conversation,{role: 'user', content: value}]
+            // try{
+            //     const response = await axios.post('API_URL', {
+            //         messages:chatHistory
+            //     },{
+            //         headers:{
+            //             "Content-Type":"application/json",
+            //         },
+            //     });
+            //     const data = await response.data
+                setValue("")
+                setConversation([
+                    ...chatHistory,
+                    botMessage
+                    // {role: 'bot', content: data.result.choices[0].message.content} 
+                    //the data.result.choices blah blah
+                    //need to know how your endpoint is sending the response and in which format.
+                ])
 
+            //}
+            // catch(error){
+            //     console.error(error)
+            //}   
 
-const Message = (props : any) => {
-    const { author, body } = props.data;
-
-    let finalBody;
-
-    if (Array.isArray(body)) {
-        finalBody = body.map((item, index) => {
-            return <a href={item.url} 
-            className="inline-block bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 border border-blue-700 rounded cursor-pointer transition ease-in-out duration-300"
-             key={index}>{item.text}</a>;
-        });
+        }
     }
-    else {
-        finalBody = <div className={`inline-block px-4 py-2 rounded-lg shadow ${author === 'human' ? 'bg-gray-500 text-white rounded-br-none' : 'bg-green-500 text-black rounded-tl-none'} max-w-3/4`}>{body}</div>;
-    }
+
+    const getBotResponse = (userInput: string): string => {
+        const lowerCaseInput = userInput.toLowerCase();
+        if (lowerCaseInput.includes('hello') || lowerCaseInput.includes('hi')) {
+          return 'Hi there! How can I assist you today?';
+        } else if (lowerCaseInput.includes('how are you')) {
+          return 'I am just a bot, but thanks for asking!';
+        } else {
+          return 'I am not sure how to respond to that.';
+        }
+    };
+
+    const handleRefreshChat = () => {
+        inputRef.current?.focus();
+        setValue("");
+        setConversation([]);
+    };
 
     return (
-        <li className={`mb-4 ${author === 'human' ? 'text-right' : 'text-left'}`}>
-            {finalBody}
-        </li>
+        <div className='w-full h-full flex flex-col items-center justify-center p-4'>
+            <div className='text-center mb-4'>
+                <h1 className='text-6xl'>Hi there I am a chatbot</h1>
+            </div>
+            <div className="w-full max-w-md flex flex-col items-center mb-4">
+                <p className="font-bold mb-2">Please type your prompt</p>
+                <input
+                    placeholder="Type here"
+                    className='w-full px-4 py-2 border border-gray-300 shadow-sm rounded-md mb-2'
+                    value={value} onChange={handleInput}
+                    onKeyDown={handleKeyDown}
+                    ref={inputRef}
+                />
+                <button
+                    className='bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded-3xl text-xs'
+                    onClick={handleRefreshChat}>Refresh Chat</button>
+            </div>
+            <div ref={chatContainerRef} className='w-full max-w-2xl h-96 overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-gray-900 scrollbar-track-transparent'>
+                {conversation.map((item, index) => (
+                    <div key={index} className={`w-full flex ${item.role === 'bot' ? 'justify-end' : 'justify-start'} my-1`}>
+                        <div className={`max-w-xs p-3 ${item.role === 'bot' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'} rounded-lg shadow`}>
+                            <strong>{item.role === 'bot' ? 'Guardian' : 'User'}:</strong>
+                            <br />
+                            {item.content}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
     );
 };
-
-
- export class Chat extends React.Component <{}, { messages: any, responses: any}>{
-    constructor(props : any) {
-        super(props);
-
-        this.state = {
-            messages: [],
-            responses: 0
-        };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.demo = this.demo.bind(this);
-        this.mockReply = this.mockReply.bind(this);
-    }
-
-    componentDidMount() {
-        this.demo();
-    }
-
-    demo() {
-
-        this.setState({
-            messages: [],
-            responses: 0
-        });
-
-        messages.map((item, index) => {
-            setTimeout(() => this.addMessage(item), item.timeout);
-        });
-        
-        // window.addEventListener('keydown', (e) => {
-        //     // if d for demo
-        //     if (e.keyCode == "68") {
-        //         this.demo();
-        //     }
-        // });
-        
-        setTimeout(() => {
-            this.setState({
-                messages: this.state.messages.slice(1, this.state.messages.length)
-            });
-        }, 700);
-
-    }
-
-    addMessage(item : any) {
-        this.setState({
-            messages: [...this.state.messages, item]
-        });
-
-        setTimeout(() => {
-            const items = document.querySelectorAll('li');
-            const lastItem = items[items.length - 1];
-            const chatList = document.querySelector('.c-chat__list');
-            if (chatList) {
-                chatList.scrollTop = lastItem.offsetTop + parseInt(lastItem.style.height);
-            }
-        }, 100);
-    }
-
-    handleSubmit(e : any) {
-        e.preventDefault();
-        
-        this.addMessage({
-            author: 'human',
-            body: e.target.querySelector('input').value
-        });
-
-        this.mockReply();
-
-        e.target.reset();
-
-    }
-
-    mockReply() {
-        let response : string | any;
-
-        if (this.state.responses == 0) {
-            response = responses[this.state.responses];
-        }
-        else {
-            if(responses[this.state.responses]) response = responses[this.state.responses];
-        }
-
-        if(response){
-            this.setState({
-                responses: this.state.responses + 1
-            });
-
-            if(Array.isArray(response)){
-                response.map((item, index) => {
-                    setTimeout(() => this.addMessage({ author: 'bot', body: item }), 600 + (500 * index));
-                });
-            }
-            else {
-                setTimeout(() => this.addMessage({ author: 'bot', body: response }), 600);
-            }
-        }
-    }
-
-    render() {
-        
-        let cssClass = ['c-chat'];
-
-        if(this.state.messages.length > 4){
-            cssClass.push('c-chat--ready');
-        }
-
-        if(this.state.messages.length == 5){
-            document.querySelector('input')?.focus();
-        }
-
-        return (
-            
-            <div className=" flex flex-col min-h-screen  bg-[#222] h-screen">
-                <div className="flex-1 overflow-y-auto w-1/2 p-4 mx-auto px-4 py-2">
-                    <ul className="list-none p-0 m-0 h-5/6
-                    scrollbar-thumb-rounded scrollbar-track-rounded-full scrollbar scrollbar-thumb-slate-700 scrollbar-track-slate-300 overflow-y-scroll pr-10">
-                        {this.state.messages.map((message : any, index : any) => (
-                            <Message key=   {index} data={message} />
-                        ))}
-                    </ul>
-                </div>
-                    <div className=' mx-auto  w-1/2'>
-                    <form className=" w-1/2 bottom-10 left-100 bg-[#333] fixed border rounded-3xl flex justify-between " onSubmit={this.handleSubmit}>
-                        <input type="text" name="input" className=" w-full p-4 font-mono text-[#fff] bg-transparent focus:outline-none" placeholder="Type your message here..." autoComplete="off" required />
-                    </form>
-                    </div>
-                
-            </div>
-            
-        );
-    }
-}
 
 export default Chat;
