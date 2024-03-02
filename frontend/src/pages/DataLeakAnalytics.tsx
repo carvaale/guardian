@@ -1,7 +1,9 @@
 import axios from 'axios';
 import {useState} from 'react';
+
 import  Banner  from './componenets/Banner';
 export const DataLeakAnalytics = () => {
+
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const [keyword, setKeyword] = useState('');
@@ -98,3 +100,4 @@ export const DataLeakAnalytics = () => {
         </>
     )
 }
+

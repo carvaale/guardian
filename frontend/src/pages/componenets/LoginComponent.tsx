@@ -23,7 +23,6 @@ export default function LoginComponent() {
       } 
     },[user,navigate])
 
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       if(loginForm.current){

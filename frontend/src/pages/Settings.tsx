@@ -1,6 +1,5 @@
 import Banner from "./componenets/Banner";
 
-
 const Settings = () => {
 
   const updatePersonalSettings = () => {

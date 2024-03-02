@@ -1,7 +1,5 @@
 import Banner from "./componenets/Banner";
 
-
-
 const AdminConsole = () => {
 
     return (

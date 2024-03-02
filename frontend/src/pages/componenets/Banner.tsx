@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import img from "../../assets/guardian-logo.webp";
+
 import { useAuth } from "../../layouts/AuthContext";
 
  const Banner = () => {
@@ -47,6 +48,7 @@ import { useAuth } from "../../layouts/AuthContext";
             <input
                 className='text-white mr-4 cursor-pointer hover:text-blue-500'
                 onClick={handleSubmit}
+
                 type='submit'
                 value='Logout'
             />

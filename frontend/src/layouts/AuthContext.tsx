@@ -106,6 +106,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
 
         try{
+
              const response = await axios.post(`${api_key}/verify`, {
                 access_token: token,
                 token_type: 'Bearer',
@@ -115,6 +116,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             const user_data = response.data;
             setUser(user_data);            
             setRole(user_data.role);
+
         }
         catch(error){
             console.error(error);
