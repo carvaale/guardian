@@ -1,6 +1,5 @@
 
 import '../index.css'
-import LoginComponent from './componenets/LoginComponent'
 const Home = () => {
   
   return (

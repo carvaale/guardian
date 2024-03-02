@@ -1,13 +1,14 @@
-
 import { Outlet, Navigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
- 
+
 const ProtectedLayout = () => {
-    let {user} = useAuth();
+    const { user } = useAuth();
+    const token = localStorage.getItem('userToken');
+
+
     return (
-        user ? <Outlet /> : <Navigate to="/login" />
+       token || user ? <Outlet /> : <Navigate to="/login" />
     );
 };
-
 
 export default ProtectedLayout;

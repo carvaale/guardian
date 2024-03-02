@@ -1,6 +1,6 @@
 import enum
 from sqlalchemy import Column, Integer, String, Enum
-from backend.database.database import Base
+from backend.database.db import Base
 
 
 class Users(Base):

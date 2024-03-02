@@ -10,6 +10,13 @@ import Home from './pages/Home.tsx';
 import Login from './pages/Authentication/Login.tsx';
 import ChatBotPage from './pages/ChatBotPage.tsx';
 import ForgotPassword from './pages/Authentication/ForgotPassword.tsx';
+import {DataLeakAnalytics} from './pages/DataLeakAnalytics.tsx';
+import AuthLayout from './layouts/AuthLayout.tsx';
+import PiiIdentifier from './pages/PiiIdentifier.tsx';
+import AdminConsole from './pages/AdminConsole.tsx';
+import Settings from './pages/Settings.tsx';
+import { AdminLayout } from './layouts/AdminLayout.tsx';
+
 
 
 
@@ -19,17 +26,25 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <AuthProvider>
           <RootLayout/>
           <Routes>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/register" element={<Register/>}/>
-            <Route path="/forgot-password" element={<ForgotPassword/>}/>
-            
-            <Route path="/chat" element={<ChatBotPage/>}/>
-            <Route element={<ProtectedLayout />}>
-              <Route path="/" element={<Home/>}/>
-              
-              
-            </Route>
-          </Routes>
+                <Route element={<AuthLayout/>}>
+                  <Route path="/login" element={<Login/>}/>
+                  <Route path="/register" element={<Register/>}/>
+                  <Route path="/forgot-password" element={<ForgotPassword/>}/>
+                </Route>
+                {/* <Route element={<ProtectedLayout />}>
+                  <Route path="/" element={<Home/>}/>
+                </Route> */}
+                 <Route element={<ProtectedLayout />}>
+                  <Route path="/pii_identifier" element={<PiiIdentifier/>}/>
+                  <Route path="/settings" element={<Settings/>}/>
+                  <Route path='/' element={<Home/>}/>
+                  <Route path='/data_leak' element={<DataLeakAnalytics/>}/>
+                  <Route path="/chat" element={<ChatBotPage/>}/>
+                  <Route element={<AdminLayout/>}>
+                    <Route path="/admin_console" element={<AdminConsole/>}/>
+                  </Route>
+                </Route>
+              </Routes>
         </AuthProvider>
     </Router>
   </React.StrictMode>,
