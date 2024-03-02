@@ -15,29 +15,45 @@ const Settings = () => {
   return (
     <>
     <Banner />
-    <div className="flex flex-row justify-around items-center bg-neutral-900 w-full h-screen pt-20">
-      <div className="w-4/12 flex flex-col bg-white rounded-lg">
-        <h1>Usr info</h1>
-        <input type="text" placeholder="Name"/>
-        <input type="text" placeholder="Email"/>
-        <input type="text" placeholder="Organization"/>
-        <input type="text" placeholder="Role" disabled/>
-        <button onClick={updatePersonalSettings}>Update Info</button>
+    <div id="topo" className="flex flex-row justify-evenly items-center w-full h-screen pt-20">
+      <div className="flex min-h-screen items-center justify-center p-12">
+        <form action="">
+            <div className="rounded-3xl bg-neutral-800 p-10">
+              <h1 className="text-xl text-center font-semibold text-gray-800 dark:text-white">Account Settings</h1>
+              <div className="mt-8 space-y-4">
+                  <input className="w-full bg-transparent text-gray-600 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Username" type="text" name="username"/>
+                  <input className="w-full bg-transparent text-gray-600 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Email" type="email" name="email"/>
+                  <input className="w-full bg-transparent text-gray-600 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Password" type="password" name="password"/>
+                  <input className="w-full bg-transparent text-gray-600 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Organization" type="text" name="organization"/>
+                  <input className="w-full bg-transparent text-gray-600 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Role" type="text" name="role" disabled/>
+                  <button className="h-9 px-3 w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-700 transition duration-500 rounded-md text-white" type="submit">
+                    Update Account
+                  </button>
+              </div>
+            </div>
+        </form>
       </div>
-      <div className="w-4/12 flex flex-col bg-white rounded-lg">
-        <h1>Model info</h1>
-        <label htmlFor="llm-models">LLM Model</label>
-        <select name="llm-models" id="llm-models">
-          <option value="Meta Llama2-7B">Meta Llama2-7B</option>
-          <option value="Meta Llama2-13B">Meta Llama2-13B</option>
-          <option value="Meta Llama2-70B">Meta Llama2-70B</option>
-          <option value="Meta Llama2-TB">Meta Llama2-TB</option>
-        </select>
-        <input type="text" placeholder="Temperature"/>
-        <input type="text" placeholder="Token Length"/>
-        <input type="text" placeholder="TopP"/>
-        <input type="text" placeholder="TopK"/>
-        <button onClick={updateModelSettings}>Update Model</button>
+      <div className="flex min-h-screen items-center justify-center p-12">
+        <form action="">
+        <div className="rounded-3xl bg-neutral-800 p-10">
+              <h1 className="text-xl text-center font-semibold text-gray-800 dark:text-white">LLM Settings</h1>
+              <div className="mt-8 space-y-4">
+                  <select className="w-full bg-transparent text-gray-600 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" name="models">
+                    <option value="llama27bTB">Meta Llama2 7B - TB</option>
+                    <option value="llama27b">Meta Llama2 7B</option>
+                    <option value="llama214b">Meta Llama2 14B</option>
+                    <option value="llama270b">Meta Llama2 70B</option>
+                  </select>
+                  <input className="w-full bg-transparent text-gray-600 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Temperature" type="number" name="temperature"/>
+                  <input className="w-full bg-transparent text-gray-600 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Token Length" type="number" name="tokenLength"/>
+                  <input className="w-full bg-transparent text-gray-600 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Top-P" type="number" name="topP"/>
+                  <input className="w-full bg-transparent text-gray-600 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Top-K" type="number" name="topK"/>
+                  <button className="h-9 px-3 w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-700 transition duration-500 rounded-md text-white" type="submit">
+                    Update LLM
+                  </button>
+              </div>
+            </div>
+        </form>
       </div>
     </div>
     </>

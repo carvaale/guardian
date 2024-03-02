@@ -35,16 +35,16 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 {/* <Route element={<ProtectedLayout />}>
                   <Route path="/" element={<Home/>}/>
                 </Route> */}
-                 <Route element={<ProtectedLayout />}>
+                 {/* <Route element={<ProtectedLayout />}> */}
                   <Route path="/pii_identifier" element={<PiiIdentifier/>}/>
                   <Route path="/settings" element={<Settings/>}/>
                   <Route path='/' element={<Home/>}/>
                   <Route path='/data_leak' element={<DataLeakAnalytics/>}/>
                   <Route path="/chat" element={<ChatBotPage/>}/>
-                  <Route element={<AdminLayout/>}>
+                  {/* <Route element={<AdminLayout/>}> */}
                     <Route path="/admin_console" element={<AdminConsole/>}/>
-                  </Route>
-                </Route>
+                  {/* </Route> */}
+                {/* </Route> */}
               </Routes>
         </AuthProvider>
     </Router>

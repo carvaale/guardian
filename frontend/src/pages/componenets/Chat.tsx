@@ -73,7 +73,7 @@ const Chat = () => {
     };
 
     return (
-        <div className='w-full h-full flex flex-col items-center justify-center p-4'>
+        <div id="topo" className='w-full h-full flex flex-col items-center justify-center p-4'>
             <div className="w-full max-w-md flex flex-col items-center mb-4">
                 <button
                     className='bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded-3xl text-xs'

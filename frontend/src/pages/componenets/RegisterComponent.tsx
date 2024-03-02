@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../layouts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { GuardianLogo } from "./Logo";
 
 export default function RegisterComponent() {
 
@@ -11,7 +12,7 @@ export default function RegisterComponent() {
 
   }
 
-  const[error, setError] = useState({value:""});  
+  const[error, setError] = useState({value:""});
   const {user, registerUser} = useAuth()
   const registerForm = useRef<HTMLFormElement & RegisterFormElements>(null);
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function RegisterComponent() {
   useEffect(() => {
     if(user){
       navigate("/");
-    } 
+    }
   })
 
 
@@ -34,7 +35,7 @@ export default function RegisterComponent() {
         setError({value: "Please fill in all fields"});
         return;
       }
-      await registerUser(userInfo);  
+      await registerUser(userInfo);
     }
     else{
       console.error("Form not found ")
@@ -43,29 +44,29 @@ export default function RegisterComponent() {
 
     return (
       <>
-  <div className="flex min-h-screen items-center justify-center p-12">
-    <form action="" onSubmit={handleSubmit} ref={registerForm}>
-      <div className="max-w-sm rounded-2xl bg-gradient-to-b from-sky-300 to-purple-500 p-px dark:from-gray-800 dark:to-transparent">
-        <div className="rounded-[calc(1.5rem-1px)] bg-white px-10 p-12 dark:bg-gray-900">
-            <div>
-            <h1 className="text-xl flex items-center justify-center font-semibold text-gray-800 dark:text-white">Register your account</h1>
+        <div className="flex min-h-screen items-center justify-center p-12">
+          <form action="" onSubmit={handleSubmit} ref={registerForm}>
+            <div className="rounded-[calc(1.5rem-1px)] bg-white px-10 p-12 dark:bg-gray-900">
+              <div className="flex flex-col items-center">
+                <GuardianLogo />
+                <h1 className="text-xl text-center font-semibold text-gray-800 dark:text-white">Register your account</h1>
+                <p className="text-sm text-center tracking-wide text-gray-600 dark:text-gray-300">Already have an account? <a href="" onClick={()=> navigate("/login")} className="text-blue-600 transition duration-200 hover:underline dark:text-blue-400">Login</a></p>
+              </div>
+
+              <div className="mt-8 space-y-8">
+                <div className="space-y-6">
+                  <input className="w-full bg-transparent text-gray-600 dark:text-white dark:border-gray-700 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" required placeholder="email" type="email" name="email"/>
+                  <input className="w-full bg-transparent text-gray-600 dark:text-white dark:border-gray-700 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" required placeholder="Password" type="password" name="password"/>
+                </div>
+
+                <button className="h-9 px-3 w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-700 transition duration-500 rounded-md text-white" type="submit">
+                  Register
+                </button>
+                {error && <p>{error.value}</p>}
+              </div>
             </div>
-          <div className="mt-4 space-y-8">
-            <div className="space-y-4">
-              <input className="w-full bg-transparent text-gray-600 dark:text-white dark:border-gray-700 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Email" type="email" name="email" id="email" />
-  
-              <input className="w-full bg-transparent text-gray-600 dark:text-white dark:border-gray-700 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Password" type="password" name="password" id="password"/>
-            </div>
-  
-            <button className="h-9 px-3 w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-700 transition duration-500 rounded-md text-white" type="submit"> 
-              Register
-            </button> 
-            {error && <p>{error.value}</p>}
-          </div>
+          </form>
         </div>
-      </div>
-    </form>
-  </div>
       </>
     );
   }

@@ -48,7 +48,7 @@ export const DataLeakAnalytics = () => {
     return(
         <>
         <Banner />
-        <div className='bg-neutral-900 w-full h-screen pt-20'>
+        <div id='topo' className='w-full h-screen pt-20'>
         <div className='flex items-center justify-center text-4xl'>
             <h1> Data Leak Analytics</h1>
         </div>
@@ -100,4 +100,3 @@ export const DataLeakAnalytics = () => {
         </>
     )
 }
-

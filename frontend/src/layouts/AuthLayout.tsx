@@ -9,7 +9,6 @@ const AuthLayout = () => {
   console.log(user);
   return (
     token || user? <p>You should not be allowed to see this!</p> : <Outlet />
-
   );
 };
 export default AuthLayout;
