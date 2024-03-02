@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {useState} from 'react';
+import { Banner } from './componenets/Banner';
 const DataLeakAnalytics = () => {
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
@@ -32,18 +33,20 @@ const DataLeakAnalytics = () => {
 
     //below function is for testing purposes only. gets dummy response of what leaked records would look like.
     // const generateDummyApiResponse = () => {
-    //     const randomRecords = Math.floor(Math.random() * 5) + 1; 
-    //     const dummyRecords: string[] = []; // Array to hold dummy records 
-      
+    //     const randomRecords = Math.floor(Math.random() * 5) + 1;
+    //     const dummyRecords: string[] = []; // Array to hold dummy records
+
     //     for (let i = 0; i < randomRecords; i++) {
     //       dummyRecords.push(`Dummy PII Record ${i + 1} - Contains keyword: ${keyword}`);
     //     }
-      
+
     //     return dummyRecords;
     //   };
 
     return(
         <>
+        <Banner />
+        <div className='bg-neutral-900 w-full h-screen pt-20'>
         <div className='flex items-center justify-center text-4xl'>
             <h1> Data Leak Analytics</h1>
         </div>
@@ -90,6 +93,7 @@ const DataLeakAnalytics = () => {
           ) : (
             <div style={{ color: 'green' }}>No leaks found</div>
           )}
+        </div>
         </div>
         </>
     )
