@@ -48,54 +48,58 @@ export const DataLeakAnalytics = () => {
     return(
         <>
         <Banner />
-        <div id='topo' className='w-full h-screen pt-20'>
-        <div className='flex items-center justify-center text-4xl'>
-            <h1> Data Leak Analytics</h1>
-        </div>
-        <div className="pt-20">
-            <form className="flex justify-center items-center" onSubmit={handleSubmit} >
-                <div className = 'mb-4'>
-                    <label className = 'text-xl'>Start Time: </label>
-                    <input type = 'time' className = 'border-2' value={startTime} onChange={(e) => setStartTime(e.target.value)} />
-                </div>
-                <div className = 'mb-4 pl-10'>
-                    <label className = 'text-xl'>End Time: </label>
-                    <input type = 'time' className = 'border-2' value={endTime} onChange={(e) => setEndTime(e.target.value)} />
-                </div>
-                <div className ='mb-4 pl-10'>
-                    <label className ='text-xl'>Keyword: </label>
-                    <input type ='text' className = 'border-2' value={keyword} onChange={(e) => setKeyword(e.target.value)}></input>
-                </div>
-                <div className='pl-5'>
-                <button className="mb-4 rounded-md bg-blue-500 focus:outline-none focus:shadow-outline-blue" type="submit">Search</button>
-                </div>
-            </form>
-        </div>
-        <div className="mt-8 flex justify-center items-center">
-          {piiSearchResults.length > 0 ? (
-             <div>
-             <h2 className="text-red-500 font-bold">Leaked Records:</h2>
-             <table className="w-full border mt-2">
-               <thead>
-                 <tr className="bg-red-200">
-                    <th className='border p-2'>Record #</th>
-                   <th className="border p-2">Record</th>
-                 </tr>
-               </thead>
-               <tbody>
-                 {piiSearchResults.map((record, index) => (
-                   <tr key={index} className="bg-red-100">
-                    <td className = 'border p-2'>{index+1}</td>
-                     <td className="border p-2">{record}</td>
-                   </tr>
-                 ))}
-               </tbody>
-             </table>
-           </div>
-          ) : (
-            <div style={{ color: 'green' }}>No leaks found</div>
-          )}
-        </div>
+        <div id="topo" className="flex flex-row justify-evenly items-center w-full h-screen pt-20">
+          <div className="w-3/4 m-10 flex flex-row justify-between space-x-10 rounded-3xl bg-neutral-800 p-10">
+              <form className="w-1/2 flex flex-col items-start justify-center gap-y-2" onSubmit={handleSubmit} >
+                  <h1 className="text-xl text-center font-bold text-white">Data Leak Analytics</h1>
+                  <span className='text-white text-sm'>Data Leak Analytics provides information on previous interactions with a public LLM. All prompts are saved locally and can be sifted through here to detect potential data leaks.</span>
+                  <span className='text-white text-sm'>Select a start time, end time, and specify a keyword to decect data leaks within your organization.</span>
+                  <div className='flex flex-row gap-x-2 w-1/2'>
+                    <div className='flex flex-col'>
+                    <label htmlFor="start" className = 'text-white text-sm'>Start Time</label>
+                    <input name="start" type = 'time' className = 'border-2' value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+                    </div>
+                    <div className='flex flex-col'>
+                    <label htmlFor="end" className = 'text-white text-sm'>End Time</label>
+                    <input  name="end" type='time' className = 'border-2' value={endTime} onChange={(e) => setEndTime(e.target.value)} />
+                    </div>
+                  </div>
+                  <div className='flex flex-col gap-y-3 w-1/2'>
+                    <label htmlFor="keyword" className = 'text-white text-sm'>Keyword</label>
+                    <input name="keyword" type ='text' className = 'border-2' value={keyword} onChange={(e) => setKeyword(e.target.value)}></input>
+                    <button className="h-9 px-3 w-1/2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-700 transition duration-500 rounded-md text-white">
+                      Search
+                    </button>
+                  </div>
+              </form>
+          <div className="w-1/2 flex justify-center items-center">
+            {piiSearchResults.length > 0 ? (
+              <div>
+              <h2 className="text-red-500 font-bold">Leaked Records:</h2>
+              <table className="w-full border mt-2">
+                <thead>
+                  <tr className="bg-red-200">
+                      <th className='border p-2'>Record #</th>
+                    <th className="border p-2">Record</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {piiSearchResults.map((record, index) => (
+                    <tr key={index} className="bg-red-100">
+                      <td className = 'border p-2'>{index+1}</td>
+                      <td className="border p-2">{record}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            ) : (
+              <div className="w-3/4 h-3/4 flex items-center justify-center bg-green-400 rounded-xl">
+                <span className="text-white font-bold"><span className="text-4xl">0</span> Leaks Found.</span>
+              </div>
+            )}
+          </div>
+          </div>
         </div>
         </>
     )

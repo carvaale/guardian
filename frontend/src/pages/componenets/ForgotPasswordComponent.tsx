@@ -8,9 +8,9 @@ export default function RegisterComponent() {
 
     return (
       <>
-        <div className="flex min-h-screen items-center justify-center p-12">
+          <div id="topo" className="flex flex-row justify-evenly items-center w-full h-screen">
           <form action="">
-              <div className="flex flex-col items-center rounded-[calc(1.5rem-1px)] bg-white px-10 p-12 dark:bg-gray-900">
+              <div className="flex flex-col items-center rounded-[calc(1.5rem-1px)] px-10 p-12 bg-neutral-800">
                   <GuardianLogo />
                   <div>
                   <h1 className="text-xl flex items-center justify-center font-semibold text-gray-800 dark:text-white">Forgot your password?</h1>
