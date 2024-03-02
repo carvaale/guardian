@@ -11,7 +11,7 @@ export default function LoginComponent() {
     }
 
     const[error, setError] = useState({value:""});  
-    const {user, loginUser} = useAuth()
+    const {user,loginUser} = useAuth()
     const navigate = useNavigate();
     const loginForm = useRef<HTMLFormElement & LoginFormElements>(null);
 
@@ -19,10 +19,9 @@ export default function LoginComponent() {
 
     useEffect(() => {
       if(user){
-        navigate("/Home");
+        navigate("/");
       } 
-    })
-
+    },[user,navigate])
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -35,7 +34,7 @@ export default function LoginComponent() {
           setError({value: "Please fill in all fields"});
           return;
         }
-        await loginUser(userInfo);  
+        await loginUser(userInfo); 
       }
       else{
         console.error("Form not found ")

@@ -1,4 +1,5 @@
-import { Banner } from './componenets/Banner';
+
+import  Banner  from './componenets/Banner';
 import Chat from './componenets/Chat';
 
 export default function ChatBotPage() {

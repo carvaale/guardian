@@ -1,11 +1,12 @@
-from sqlalchemy import Column, Integer, String
-from backend.database.database import Base
+import enum
+from sqlalchemy import Column, Integer, String, Enum
+from backend.database.db import Base
 
 
 class Users(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True)
     email = Column(String, unique=True)
     password = Column(String)
+    role = Column(String)

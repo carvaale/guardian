@@ -1,6 +1,4 @@
-import { Banner } from "./componenets/Banner";
-
-
+import Banner from "./componenets/Banner";
 
 const AdminConsole = () => {
 

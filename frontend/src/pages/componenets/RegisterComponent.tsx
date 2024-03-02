@@ -1,5 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../layouts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterComponent() {
 
@@ -7,26 +8,29 @@ export default function RegisterComponent() {
   type RegisterFormElements = {
     email: HTMLInputElement;
     password: HTMLInputElement;
-    firstname: HTMLInputElement;
-    lastname: HTMLInputElement;
+
   }
 
   const[error, setError] = useState({value:""});  
-  const {registerUser} = useAuth()
+  const {user, registerUser} = useAuth()
   const registerForm = useRef<HTMLFormElement & RegisterFormElements>(null);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if(user){
+      navigate("/");
+    } 
+  })
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if(registerForm.current){
-      const firstname = registerForm.current.firstname.value;
-      const lastname = registerForm.current.lastname.value;
       const email = registerForm.current.email.value;
       const password = registerForm.current.password.value;
-      const userInfo= {email,password,firstname,lastname};
+      const userInfo= {email,password};
 
-      if(firstname === "" || lastname === "" || email === "" || password === ""){
+      if(email === "" || password === ""){
         setError({value: "Please fill in all fields"});
         return;
       }
@@ -45,10 +49,6 @@ export default function RegisterComponent() {
         <div className="rounded-[calc(1.5rem-1px)] bg-white px-10 p-12 dark:bg-gray-900">
             <div>
             <h1 className="text-xl flex items-center justify-center font-semibold text-gray-800 dark:text-white">Register your account</h1>
-            </div>
-            <div className="space-y-4 pt-5">
-              <input className="w-full bg-transparent text-gray-600 dark:text-white dark:border-gray-700 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="First Name" type="text" name="firstname"   />
-              <input className="w-full bg-transparent text-gray-600 dark:text-white dark:border-gray-700 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Last Name" type="text" name="lastname"  />
             </div>
           <div className="mt-4 space-y-8">
             <div className="space-y-4">

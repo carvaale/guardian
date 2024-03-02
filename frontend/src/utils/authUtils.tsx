@@ -1,30 +1,18 @@
 import axios from "axios";
-import { SetStateAction, Dispatch } from "react";
-import { NavigateFunction } from "react-router-dom";
-interface VerifyTokenAndSetUserProps {
-    token: string | null;
-    setUser: Dispatch<SetStateAction<string | null>>;
-    navigate: NavigateFunction;
-}
 
-export const verifyTokenAndSetUser = async ({ token, setUser, navigate }: VerifyTokenAndSetUserProps) => {
+
+const api_url = 'http://127.0.01/api/auth'
+
+export const verifyToken = async (token: string) => {
 
     try {
         if (!token) {
             throw new Error('Invalid token');
         }
 
-        const response = await axios.post('/api_url', { token });
-        const user = response.data.user;
-        setUser(user);
-        localStorage.setItem('userToken', token);
-        navigate('/')
-
+        const response = await axios.get(`${api_url}/verify`, {headers: {Authorization: `Bearer ${token}`}});  
+        return response.data 
     } catch (error) {
-        console.error(error);
-
-        localStorage.removeItem('userToken');
-        setUser(null);
-
+        console.error("Token Verification failed", error);
     }
 };
