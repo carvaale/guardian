@@ -7,16 +7,7 @@ from backend.database.models import Users
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer
 from jwt import encode, decode, PyJWTError
-from dotenv import load_dotenv
-
-import os
-
-
-load_dotenv()
-
-#SECRET_KEY = os.getenv("SECRET_KEY")
-SECRET_KEY :str = '8Zz5tw0Ionm3XPZZfN0NOml3z9FMfmpgXwovR9fp6ryDIoGRM8EPHAB6iHsc0fb'
-ALGORITHM = "HS256"
+from backend.constants import SECRET_KEY, JWT_ALGORITHM
 
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl="auth/token")
@@ -26,26 +17,28 @@ def authenticate_user(email: str, password: str, db: Session):
     user = db.query(Users).filter(Users.email == email).first()
     if not user:
         return False
-    
+
     if not verify_password(password, user.password):
         return False
     return user
 
 
-def create_access_token(user_id: int, email: str, role: str, expires_delta: timedelta):
+def create_access_token(
+    user_id: int, email: str, role: str, expires_delta: timedelta
+):
     expire = datetime.utcnow() + expires_delta
     exp = int((expire - datetime(1970, 1, 1)).total_seconds())
     to_encode = {"sub": str(user_id), "email": email, "role": role, "exp": exp}
-    encoded_jwt = encode(to_encode, SECRET_KEY, ALGORITHM)
+    encoded_jwt = encode(to_encode, SECRET_KEY, JWT_ALGORITHM)
     return encoded_jwt
 
 
 def verify_token(token: str):
     try:
         print(type(token))
-        #token_bytes = token.encode('utf-8')
-        
-        payload = decode(token, SECRET_KEY, ALGORITHM)
+        # token_bytes = token.encode('utf-8')
+
+        payload = decode(token, SECRET_KEY, JWT_ALGORITHM)
         email: str = payload.get("email")
         print(email)
         user_id: int = payload.get("sub")
@@ -67,7 +60,6 @@ def verify_token(token: str):
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
     return verify_token(token)
-
 
 
 def hash_password(password: str):
