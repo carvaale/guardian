@@ -9,7 +9,10 @@ const Chat = () => {
 
     // States
     const [value, setValue] = useState<string>("");
-    const [conversation, setConversation] = useState<Conversation[]>([]);
+    const [conversation, setConversation] = useState<Conversation[]>([
+        { role: 'user', content: 'Hello' },
+        { role: 'bot', content: 'Hi there! How can I assist you today?' },
+    ]);
     const inputRef = useRef<HTMLInputElement>(null);
     const chatContainerRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +31,7 @@ const Chat = () => {
     const handleKeyDown = async(e:React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             const botMessage = { role: 'bot', content: getBotResponse(value) };
-            const chatHistory= [...conversation,{role: 'user', content: value}]
+            const chatHistory= [...conversation, {role: 'user', content: value}]
             // try{
             //     const response = await axios.post('API_URL', {
             //         messages:chatHistory
@@ -69,16 +72,23 @@ const Chat = () => {
     const handleRefreshChat = () => {
         inputRef.current?.focus();
         setValue("");
-        setConversation([]);
+        setConversation([
+            { role: 'user', content: 'Hello' },
+            { role: 'bot', content: 'Hi there! How can I assist you today?' },
+        ]);
     };
 
     return (
-        <div id="topo" className='w-full h-full flex flex-col items-center justify-center p-4'>
-            <div className="w-full max-w-md flex flex-col items-center mb-4">
+        <div id="topo" className="flex flex-row justify-evenly items-center w-full h-screen">
+            <div className="mt-20 w-1/2 flex flex-col items-center rounded-3xl bg-neutral-800 p-4">
+            <div className="w-full flex flex-row items-center justify-between mb-4 px-4">
+                <h1 className="text-xl font-bold text-white">Meta Llama2 7B</h1>
                 <button
                     className='bg-blue-500 hover:bg-blue-700 text-white py-1 px-3 rounded-3xl text-xs'
-                    onClick={handleRefreshChat}>Refresh Chat</button>
+                    onClick={handleRefreshChat}>Refresh Chat
+                </button>
             </div>
+            <div id="bar" className='w-full bg-neutral-50'/>
             <div ref={chatContainerRef} className='w-full max-w-2xl h-96 p-2 overflow-y-scroll scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-gray-300 scrollbar-track-transparent'>
                 {conversation.map((item, index) => (
                     <div key={index} className={`flex ${item.role === 'bot' ? 'justify-start' : 'justify-end'} my-1`}>
@@ -90,15 +100,23 @@ const Chat = () => {
                     </div>
                 ))}
             </div>
-            <div className="w-full max-w-md flex flex-col items-center mb-4">
+            <div id="bar" className='w-full bg-neutral-50 mb-2'/>
+            <div className="w-full flex flex-row items-center gap-x-2 px-20">
                 <input
-                    placeholder="Type here"
-                    className='w-full px-4 py-2 border border-gray-300 shadow-sm rounded-md mb-2'
-                    value={value} onChange={handleInput}
+                    placeholder="Enter Prompt"
+                    className='w-full pl-2 py-2 border border-gray-300 shadow-sm rounded-md'
+                    value={value}
+                    onChange={handleInput}
                     onKeyDown={handleKeyDown}
                     ref={inputRef}
                 />
+                <button
+                    className="w-1/4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-700 transition duration-500 rounded-md text-white"
+                    >
+                    Send
+                </button>
             </div>
+        </div>
         </div>
     );
 };

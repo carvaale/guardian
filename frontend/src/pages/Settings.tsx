@@ -20,6 +20,7 @@ const Settings = () => {
         <form action="">
             <div className="rounded-3xl bg-neutral-800 p-10">
               <h1 className="text-xl text-center font-bold text-gray-800 dark:text-white">Account Settings</h1>
+              <div id="bar" className='w-full bg-neutral-50 my-2'/>
               <div className="mt-8 space-y-4">
                   <input className="w-full bg-transparent text-gray-600 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Username" type="text" name="username"/>
                   <input className="w-full bg-transparent text-gray-600 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" placeholder="Email" type="email" name="email"/>
@@ -37,6 +38,7 @@ const Settings = () => {
         <form action="">
         <div className="rounded-3xl bg-neutral-800 p-10">
               <h1 className="text-xl text-center font-bold text-gray-800 dark:text-white">LLM Settings</h1>
+              <div id="bar" className='w-full bg-neutral-50 my-2'/>
               <div className="mt-8 space-y-4">
                   <select className="w-full bg-transparent text-gray-600 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-600 invalid:border-red-500 dark:placeholder-gray-300" name="models">
                     <option value="llama27bTB">Meta Llama2 7B - TB</option>

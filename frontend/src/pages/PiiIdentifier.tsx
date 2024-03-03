@@ -10,15 +10,13 @@ const PiiIdentifier = () => {
             <Banner />
             <div id="topo" className="flex flex-row justify-evenly items-center w-full h-screen pt-20">
                 <div className="w-3/4 m-10 flex flex-row justify-between space-x-10 rounded-3xl bg-neutral-800 p-10">
-                    <div className="w-1/2 flex flex-col">
+                    <div className="w-1/2 flex flex-col gap-y-2">
                         <h1 className="text-xl font-bold text-white">PII Identifier</h1>
                         <span className="text-white text-sm">The PII Identifier is used to define keywords that will be stripped from LLM interactions. This is useful for defining keywords that may be organization specific such as passwords, api keys, and confidential information, to ensure they are not leaked.</span>
-                        <br/>
+                        <div id="bar" className='w-full bg-neutral-50'/>
                         <span className="text-white text-md">Keywords:                         <span className="text-white"> <span className="bg-orange-300">Amazon</span> <span className="bg-teal-300">Sagemaker</span> <span className="bg-purple-300">kajdh124faufh23</span></span></span>
-                        <br/>
                         <span className="text-white text-md underline">Before</span>
                         <span className="text-white text-sm">I work at <span className="bg-orange-300">Amazon</span> and I'm building a <span className="bg-teal-300">Sagemaker</span> API that uses keys <span className="bg-purple-300">kajdh124faufh23</span></span>
-                        <br/>
                         <span className="text-white text-md underline">After</span>
                         <span className="text-white text-sm">I work at <span className="bg-orange-300">[REDACTED-PII]</span> and I'm building a <span className="bg-teal-300">[REDACTED-PII]</span> API that uses keys <span className="bg-purple-300">[REDACTED-PII]</span></span>
                     </div>

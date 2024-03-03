@@ -54,6 +54,7 @@ export const DataLeakAnalytics = () => {
                   <h1 className="text-xl text-center font-bold text-white">Data Leak Analytics</h1>
                   <span className='text-white text-sm'>Data Leak Analytics provides information on previous interactions with a public LLM. All prompts are saved locally and can be sifted through here to detect potential data leaks.</span>
                   <span className='text-white text-sm'>Select a start time, end time, and specify a keyword to decect data leaks within your organization.</span>
+                  <div id="bar" className='w-full bg-neutral-50'/>
                   <div className='flex flex-row gap-x-2 w-1/2'>
                     <div className='flex flex-col'>
                     <label htmlFor="start" className = 'text-white text-sm'>Start Time</label>
