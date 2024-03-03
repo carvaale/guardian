@@ -15,8 +15,8 @@ const Settings = () => {
   return (
     <>
     <Banner />
-    <div id="topo" className="flex flex-row justify-evenly items-center w-full h-screen pt-20">
-      <div className="flex min-h-screen items-center justify-center p-12">
+    <div id="topo" className="flex flex-row justify-evenly items-center w-full h-screen pt-36 p-20 gap-x-10">
+      <div className="flex items-center justify-center">
         <form action="">
             <div className="rounded-3xl bg-neutral-800 p-10">
               <h1 className="text-xl text-center font-bold text-gray-800 dark:text-white">Account Settings</h1>
@@ -34,7 +34,7 @@ const Settings = () => {
             </div>
         </form>
       </div>
-      <div className="flex min-h-screen items-center justify-center p-12">
+      <div className="flex items-center justify-center">
         <form action="">
         <div className="rounded-3xl bg-neutral-800 p-10">
               <h1 className="text-xl text-center font-bold text-gray-800 dark:text-white">LLM Settings</h1>

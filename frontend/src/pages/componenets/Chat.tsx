@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import 'tailwind-scrollbar';
+import img from "../../assets/default-pfp.png";
 
 const Chat = () => {
     interface Conversation {
@@ -79,8 +80,24 @@ const Chat = () => {
     };
 
     return (
-        <div id="topo" className="flex flex-row justify-evenly items-center w-full h-screen">
-            <div className="mt-20 w-1/2 flex flex-col items-center rounded-3xl bg-neutral-800 p-4">
+        <div id="topo" className="flex flex-row justify-center items-center gap-x-8 w-full h-screen">
+            <div className="mt-20 w-1/5 h-3/4 flex flex-col rounded-3xl bg-neutral-800 p-4">
+                <h1 className="text-xl font-bold text-white pl-4">Chat Log</h1>
+                <div id="bar" className='w-full bg-neutral-50 mt-4'/>
+
+                <div className="flex flex-col gap-y-2 mt-4">
+                    <span className="chat-log">Sample Chat 1</span>
+                    <span className="chat-log">Sample Chat 2</span>
+                    <span className="chat-log">Sample Chat 3</span>
+                </div>
+
+                <div id="bar" className='w-full bg-neutral-50 mt-auto mb-2'/>
+                <div className="flex flex-row items-center">
+                    <img src={img} alt="Profile Picture" className="h-10 w-10 rounded-full"/>
+                    <span className="text-white font-bold ml-2">Username</span>
+                </div>
+            </div>
+            <div className="mt-20 w-1/2 h-3/4 flex flex-col items-center rounded-3xl bg-neutral-800 p-4">
             <div className="w-full flex flex-row items-center justify-between mb-4 px-4">
                 <h1 className="text-xl font-bold text-white">Meta Llama2 7B</h1>
                 <button

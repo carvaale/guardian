@@ -30,3 +30,15 @@
 #bar {
     height: 1px;
 }
+
+.chat-log {
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.chat-log:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.15);
+}
