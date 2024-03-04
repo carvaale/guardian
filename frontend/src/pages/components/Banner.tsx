@@ -41,7 +41,10 @@ const Banner = () => {
       </span>
       <input
         className="text-white mr-4 cursor-pointer hover:text-sky-400"
-        onClick={logout}
+        onClick={() => {
+          logout();
+          navigate("/login");
+        }}
         type="submit"
         value="Logout"
       />

@@ -26,7 +26,13 @@ class CreateUserRequest(BaseModel):
     role: str
 
 
-class Token(BaseModel):
+class User(BaseModel):
+    username: str
+    role: str
+
+
+class LoginResponse(BaseModel):
+    user: User
     access_token: str
     token_type: str
 
@@ -42,34 +48,38 @@ def get_db():
 db_dependency = Annotated[Session, Depends(get_db)]
 
 
-@router.post("/login", response_model=Token)
+@router.post("/login", response_model=LoginResponse)
 async def login(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     db: db_dependency,
-) -> Token:
+) -> LoginResponse:
     user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password",
         )
-    role = db.query(Users).filter(Users.email == form_data.username).first().role
+    role = (
+        db.query(Users).filter(Users.email == form_data.username).first().role
+    )
     token = create_access_token(
         user.id, user.email, user.role, timedelta(hours=24)
     )
-    return {"access_token": token, "token_type": "bearer"}
-
+    user_response = User(username=user.email, role=role)
+    return {
+        "user": user_response,
+        "access_token": token,
+        "token_type": "bearer",
+    }
 
 
 @router.post("/signup", status_code=status.HTTP_201_CREATED)
 async def signup(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
-    db: db_dependency
+    db: db_dependency,
 ) -> JSONResponse:
     existing_user = (
-        db.query(Users)
-        .filter(Users.email == form_data.username)
-        .first()
+        db.query(Users).filter(Users.email == form_data.username).first()
     )
     if existing_user:
         raise HTTPException(
@@ -93,13 +103,12 @@ def logout() -> JSONResponse:
 
 
 @router.post("/verify", response_model=dict)
-def verify(token_data:Token) -> dict: 
+def verify(token_data: LoginResponse) -> dict:
     token_data = token_data.access_token
-    user_info : str = verify_token(token_data)
-    if (user_info == ""):
+    user_info: str = verify_token(token_data)
+    if user_info == "":
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid authentication credentials",
         )
     return user_info
- 
