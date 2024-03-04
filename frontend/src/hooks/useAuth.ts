@@ -15,7 +15,8 @@ export const useAuth = () => {
   }, []);
 
   const logout = () => {
-    console.log("logout");
+    localStorage.removeItem("user");
+    setUser(null);
   };
 
   return { user, loading, logout };

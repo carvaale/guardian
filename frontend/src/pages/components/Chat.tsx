@@ -28,7 +28,7 @@ const Chat = () => {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setValue(e.target.value);
     },
-    [],
+    []
   );
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -123,10 +123,16 @@ const Chat = () => {
           {conversation.map((item, index) => (
             <div
               key={index}
-              className={`flex ${item.role === "bot" ? "justify-start" : "justify-end"} my-1`}
+              className={`flex ${
+                item.role === "bot" ? "justify-start" : "justify-end"
+              } my-1`}
             >
               <div
-                className={`max-w-72 min-w-48 p-3 ${item.role === "bot" ? "bg-blue-100 text-blue-800" : "bg-green-100 text-green-800"} rounded-lg shadow`}
+                className={`max-w-72 min-w-48 p-3 ${
+                  item.role === "bot"
+                    ? "bg-blue-100 text-blue-800"
+                    : "bg-green-100 text-green-800"
+                } rounded-lg shadow`}
               >
                 <strong>{item.role === "bot" ? "Guardian" : "User"}</strong>
                 <br />
