@@ -1,13 +1,9 @@
 import { useAuth } from "./AuthContext";
 import { Outlet } from "react-router-dom";
 
-
 export const AdminLayout = () => {
-    const {role} = useAuth();
-    console.log("Deeptanshu Role is : ",role);
-    
-    return (
+  const { role } = useAuth();
+  console.log("Deeptanshu Role is : ", role);
 
-        role !=  'admin' ? <p>You dont have admin access.</p> : <Outlet /> 
-    );
-}
+  return role != "admin" ? <p>You dont have admin access.</p> : <Outlet />;
+};

@@ -1,13 +1,11 @@
-
-import LoginComponent from '../componenets/LoginComponent';
-
+import LoginComponent from "../componenets/LoginComponent";
 
 const Login = () => {
-    return (
-        <>
-            <LoginComponent />
-        </>
-    );
+  return (
+    <>
+      <LoginComponent />
+    </>
+  );
 };
 
 export default Login;
