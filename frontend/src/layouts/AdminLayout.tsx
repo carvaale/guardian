@@ -1,9 +1,12 @@
-import { useAuth } from "./AuthContext";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 export const AdminLayout = () => {
-  const { role } = useAuth();
-  console.log("Deeptanshu Role is : ", role);
+  const { user, loading } = useAuth();
 
-  return role != "admin" ? <p>You dont have admin access.</p> : <Outlet />;
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  return user?.role === "admin" ? <Outlet /> : <Navigate to="/" />;
 };

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-import Banner from "./componenets/Banner";
+import Banner from "./components/Banner";
 export const DataLeakAnalytics = () => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");

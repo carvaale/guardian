@@ -1,15 +1,14 @@
-import { Outlet } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 const AuthLayout = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
-  const token = localStorage.getItem("userToken");
-  console.log(user);
-  return token || user ? (
-    <p>You should not be allowed to see this!</p>
-  ) : (
-    <Outlet />
-  );
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  return user ? <Navigate to="/" /> : <Outlet />;
 };
+
 export default AuthLayout;

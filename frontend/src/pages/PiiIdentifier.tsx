@@ -1,4 +1,4 @@
-import Banner from "./componenets/Banner";
+import Banner from "./components/Banner";
 
 const PiiIdentifier = () => {
   return (

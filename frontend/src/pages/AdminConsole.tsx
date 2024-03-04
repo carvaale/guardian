@@ -1,4 +1,4 @@
-import Banner from "./componenets/Banner";
+import Banner from "./components/Banner";
 import img from "../assets/default-pfp.png";
 
 const AdminConsole = () => {
