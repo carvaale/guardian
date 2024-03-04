@@ -6,6 +6,8 @@ export const AdminLayout = () => {
 
   if (loading) {
     return <h1>Loading...</h1>;
+  } else if (!user) {
+    return <Navigate to="/login" />;
   }
 
   return user?.role === "admin" ? <Outlet /> : <Navigate to="/" />;
