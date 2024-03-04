@@ -25,7 +25,7 @@ export const useAuth = () => {
         .post(
           `${AUTH_URL}/login`,
           {
-            username: userInfo.username,
+            username: userInfo.email,
             password: userInfo.password,
           },
           { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
@@ -33,7 +33,7 @@ export const useAuth = () => {
         .then((response) => {
           localStorage.setItem("user", JSON.stringify(response.data));
           setUser({
-            username: response.data.user.username,
+            email: response.data.user.email,
             role: response.data.user.role,
             authToken: response.data.access_token,
           });

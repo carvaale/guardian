@@ -27,7 +27,7 @@ class CreateUserRequest(BaseModel):
 
 
 class User(BaseModel):
-    username: str
+    email: str
     role: str
 
 
@@ -65,7 +65,7 @@ async def login(
     token = create_access_token(
         user.id, user.email, user.role, timedelta(hours=24)
     )
-    user_response = User(username=user.email, role=role)
+    user_response = User(email=user.email, role=role)
     return {
         "user": user_response,
         "access_token": token,

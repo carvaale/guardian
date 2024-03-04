@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GuardianLogo } from "./Logo";
 import { useAuth } from "../../hooks/useAuth";
@@ -10,29 +10,23 @@ export default function LoginComponent() {
   };
 
   const [error, setError] = useState({ value: "" });
-  const { user, login } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
   const loginForm = useRef<HTMLFormElement & LoginFormElements>(null);
-
-  useEffect(() => {
-    if (user) {
-      navigate("/");
-    }
-  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (loginForm.current) {
-      const username = loginForm.current.email.value;
+      const email = loginForm.current.email.value;
       const password = loginForm.current.password.value;
-      const userInfo = { username, password };
+      const loginInfo = { email, password };
 
-      if (userInfo.username === "" || userInfo.password === "") {
+      if (loginInfo.email === "" || loginInfo.password === "") {
         setError({ value: "Please fill in all fields" });
         return;
       }
 
-      login(userInfo)
+      login(loginInfo)
         .then((response) => {
           console.log(response);
           navigate("/");

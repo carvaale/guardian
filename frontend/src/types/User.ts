@@ -1,5 +1,7 @@
 type User = {
-  username: string;
+  username?: string;
+  email: string;
+  organization?: string;
   role: "user" | "admin";
   authToken?: string;
 };
