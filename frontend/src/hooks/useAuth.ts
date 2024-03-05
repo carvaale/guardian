@@ -3,6 +3,7 @@ import User from "../types/User";
 import { UserLoginInfo } from "../types/UserLoginInfo";
 import axios from "axios";
 import { API_URL } from "../constants/constants";
+import { UserSignUpInfo } from "../types/UserSignUpInfo";
 
 export const useAuth = () => {
   const AUTH_URL = API_URL + "/api/auth";
@@ -51,10 +52,34 @@ export const useAuth = () => {
     });
   };
 
+  const signup = (userInfo: UserSignUpInfo) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(
+          `${AUTH_URL}/signup`,
+          {
+            username: userInfo.email,
+            password: userInfo.password,
+          },
+          {
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          resolve(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+          reject(error);
+        });
+    });
+  };
+
   const logout = () => {
     localStorage.removeItem("user");
     setUser(null);
   };
 
-  return { user, loading, login, logout };
+  return { user, loading, login, logout, signup };
 };
