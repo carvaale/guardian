@@ -11,11 +11,9 @@ export const useAuth = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setUser(
-      localStorage.getItem("user")
-        ? JSON.parse(localStorage.getItem("user") as string)
-        : null
-    );
+    setLoading(true);
+    const localToken = localStorage.getItem("user");
+    setUser(localToken ? (JSON.parse(localToken).user as User) : null);
     setLoading(false);
   }, []);
 
