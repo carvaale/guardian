@@ -1,12 +1,11 @@
 import "./index.css";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/authentication/Login";
 import Register from "./pages/authentication/Register";
 import AdminConsole from "./pages/AdminConsole";
 import { AdminLayout } from "./layouts/AdminLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import ProtectedLayout from "./layouts/ProtectedLayout";
-import Home from "./pages/Home";
 import ChatBotPage from "./pages/ChatBotPage";
 import { DataLeakAnalytics } from "./pages/DataLeakAnalytics";
 import PiiIdentifier from "./pages/PiiIdentifier";
@@ -17,7 +16,7 @@ import RootLayout from "./layouts/RootLayout";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Navigate to={"/chat"} />} />
       <Route element={<RootLayout />}>
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<Login />} />
