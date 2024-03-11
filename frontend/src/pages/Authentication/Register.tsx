@@ -1,10 +1,5 @@
-import RegisterComponent from "../componenets/RegisterComponent";
+import RegisterComponent from "../components/RegisterComponent";
 
-export default function Register(){
-    return (
-        <>
-            <RegisterComponent />
-        </>
-
-    )
+export default function Register() {
+  return <RegisterComponent />;
 }

@@ -1,14 +1,14 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../hooks/useAuth";
 
 const ProtectedLayout = () => {
+  const { user, loading } = useAuth();
 
-    const { user } = useAuth();
-    const token = localStorage.getItem('userToken');
-        
-    return (
-       token || user ? <Outlet /> : <Navigate to="/login" />
-    );
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
+  return user ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedLayout;

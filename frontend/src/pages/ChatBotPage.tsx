@@ -1,12 +1,11 @@
-
-import  Banner  from './componenets/Banner';
-import Chat from './componenets/Chat';
+import Banner from "./components/Banner";
+import Chat from "./components/Chat";
 
 export default function ChatBotPage() {
   return (
     <div>
-        <Banner />
-        <Chat />
+      <Banner />
+      <Chat />
     </div>
   );
 }
