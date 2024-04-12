@@ -16,5 +16,5 @@ export const AdminLayout = () => {
     console.log(user.role);
   }
 
-  return user?.role === "admin" ? <Outlet /> : <Navigate to="/" />;
+  return user?.role === "admin" ? <Outlet /> : <Navigate to="/data_leak" />;
 };

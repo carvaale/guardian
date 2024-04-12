@@ -21,9 +21,9 @@ router = APIRouter()
 
 
 class CreateUserRequest(BaseModel):
+    username: str
     email: str
     password: str
-    role: str
 
 
 class User(BaseModel):
@@ -75,7 +75,7 @@ async def login(
 
 @router.post("/signup", status_code=status.HTTP_201_CREATED)
 async def signup(
-    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
+    form_data: CreateUserRequest,
     db: db_dependency,
 ) -> JSONResponse:
     existing_user = (
@@ -87,7 +87,9 @@ async def signup(
             detail="Email already registered",
         )
     create_user_model = Users(
-        email=form_data.username,
+        
+        email=form_data.email,
+        username = form_data.username,
         password=hash_password(form_data.password),
         role="user",  # TODO: Set up enum for string validation
     )
