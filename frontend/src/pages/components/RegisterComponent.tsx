@@ -8,10 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 const SignupSchema = z
   .object({
-<<<<<<< HEAD
-=======
     username: z.string().min(1, "Username is required"),
->>>>>>> imran-forms-refactor
     email: z.string().min(1, "Email is required").email(),
     password: z.string().min(1, "Password is required"),
     confirmPassword: z.string().min(1, "Please confirm your password"),
@@ -98,8 +95,6 @@ export default function RegisterComponent() {
               )}
               <input
                 className={`w-full rounded-md border border-gray-300 px-3 py-2 text-sm`}
-<<<<<<< HEAD
-=======
                 placeholder="username"
                 type="username"
                 {...register("username")}
@@ -110,7 +105,6 @@ export default function RegisterComponent() {
 
               <input
                 className={`w-full rounded-md border border-gray-300 px-3 py-2 text-sm`}
->>>>>>> imran-forms-refactor
                 placeholder="Password"
                 type="password"
                 {...register("password")}
@@ -154,8 +148,4 @@ export default function RegisterComponent() {
       </form>
     </div>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> imran-forms-refactor

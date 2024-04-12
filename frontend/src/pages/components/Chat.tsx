@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import "tailwind-scrollbar";
 import img from "../../assets/default-pfp.png";
+import axios from "axios"; 
 
 const Chat = () => {
   interface Conversation {
@@ -31,43 +32,32 @@ const Chat = () => {
     []
   );
 
-  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = async (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
     if (e.key === "Enter") {
-      const botMessage = { role: "bot", content: getBotResponse(value) };
+      const tokenFromLocal = localStorage.getItem("user") as string;
+      const userObject = JSON.parse(tokenFromLocal);
+      const accessToken = userObject.access_token;
       const chatHistory = [...conversation, { role: "user", content: value }];
-      // try{
-      //     const response = await axios.post('API_URL', {
-      //         messages:chatHistory
-      //     },{
-      //         headers:{
-      //             "Content-Type":"application/json",
-      //         },
-      //     });
-      //     const data = await response.data
-      setValue("");
-      setConversation([
-        ...chatHistory,
-        botMessage,
-        // {role: 'bot', content: data.result.choices[0].message.content}
-        //the data.result.choices blah blah
-        //need to know how your endpoint is sending the response and in which format.
-      ]);
-
-      //}
-      // catch(error){
-      //     console.error(error)
-      //}
-    }
-  };
-
-  const getBotResponse = (userInput: string): string => {
-    const lowerCaseInput = userInput.toLowerCase();
-    if (lowerCaseInput.includes("hello") || lowerCaseInput.includes("hi")) {
-      return "Hi there! How can I assist you today?";
-    } else if (lowerCaseInput.includes("how are you")) {
-      return "I am just a bot, but thanks for asking!";
-    } else {
-      return "I am not sure how to respond to that.";
+      const model = "gpt-3.5-turbo";
+      try {
+ 
+        const response = await axios.post("http://127.0.0.1:8000/api/openai/generate", {
+          prompt: value,
+          model:model,
+          token:accessToken,
+          max_tokens: 50,
+          temperature: 1.0
+        });
+        const botMessageReturn = response.data.generated_response; // Assuming API returns bot message in the format { botMessage: "Bot response message" }
+        console.log(botMessageReturn)
+        setValue("");
+        console.log(response)
+        setConversation([...chatHistory, { role: "bot", content: botMessageReturn }]);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
