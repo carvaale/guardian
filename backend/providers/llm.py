@@ -46,7 +46,7 @@ class OpenAIWrapper:
 
     def _save_to_db(self, response: str, uId : int) -> None:
         """ """
-
+        '''Note I didnt test the if the database saves the timestamp because my computer literally fries if I try to run this. Please test it for me.'''
         current_time = datetime.utcnow().strftime('%H:%M')
         openai_response = OpenAIChat(response=response.content, user_id = uId, timestamp = current_time)
         self.db.add(openai_response)
