@@ -1,8 +1,11 @@
-from datetime import datetime
 import enum
-from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
+from datetime import datetime
+
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+
 from backend.database.db import Base
-from sqlalchemy.orm import relationship 
+
 
 class Users(Base):
     __tablename__ = "users"
@@ -12,7 +15,7 @@ class Users(Base):
     email = Column(String, unique=True)
     password = Column(String)
     role = Column(String)
-
+    pii = Column(String)
 
 
 class OpenAIChat(Base):
@@ -22,4 +25,3 @@ class OpenAIChat(Base):
     prompt = Column(String)
     user_id = Column(Integer, ForeignKey("users.id"))
     timestamp = Column(String)
-
