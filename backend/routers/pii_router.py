@@ -8,11 +8,11 @@ router = APIRouter()
 
 
 class PiiIdentifierRequest(BaseModel):
-    pii_csv: str | None
+    pii_csv: str
     token: str
 
 
-@router.get("/get_pii")
+@router.post("/get_pii")
 def get_pii(request: PiiIdentifierRequest) -> JSONResponse:
     pii_identifier = PiiWrapper()
 

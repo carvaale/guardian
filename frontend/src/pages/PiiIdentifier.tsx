@@ -1,6 +1,59 @@
 import Banner from "./components/Banner";
+import { useEffect, useState } from "react";
+import User from "../types/User";
 
 const PiiIdentifier = () => {
+  const [pii, setPii] = useState<string>("");
+
+  useEffect(() => {
+    const user: User = JSON.parse(localStorage.getItem("user") as string);
+
+    const fetchData = async () => {
+      try {
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            pii_csv: " ",
+            token: user.access_token
+          })
+        };
+
+        const response = await fetch('http://localhost:8000/api/pii/get_pii', requestOptions);
+        const data = await response.json();
+
+        console.log(data.pii_csv);
+        setPii(data.pii_csv);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const updatePii = async () => {
+    const user: User = JSON.parse(localStorage.getItem("user") as string);
+
+    try {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          pii_csv: pii,
+          token: user.access_token
+        })
+      };
+
+      const response = await fetch('http://localhost:8000/api/pii/update_pii', requestOptions);
+      const data = await response.json();
+
+      setPii(data.pii_csv);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+
   return (
     <>
       <Banner />
@@ -44,11 +97,15 @@ const PiiIdentifier = () => {
           <div className="w-1/2 flex flex-col items-center gap-y-3">
             <textarea
               className="h-full w-full bg-transparent text-gray-400 rounded-md border border-gray-300 px-3 py-2 text-sm placeholder-gray-400 invalid:border-red-500 dark:placeholder-gray-300"
-              placeholder="Enter PII keywords here"
               name="pii"
               id="pii"
+              value={pii}
+              onChange={(e) => setPii(e.target.value)}
             />
-            <button className="h-9 px-3 w-1/2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-700 transition duration-500 rounded-md text-white">
+            <button
+              className="h-9 px-3 w-1/2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-700 transition duration-500 rounded-md text-white"
+              onClick={updatePii}
+            >
               Save PII Keys
             </button>
           </div>

@@ -40,6 +40,8 @@ class PiiWrapper:
 
         user = self.db.query(Users).filter(Users.id == user_id).first()
 
+        print(pii)
+
         user.pii = pii
 
         self.db.commit()
