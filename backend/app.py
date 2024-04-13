@@ -1,20 +1,16 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.routers import llm_router
-from backend.routers import auth_router
-from backend.routers import admin_router
 
+from backend.routers import admin_router, auth_router, llm_router
 
 app = FastAPI()
 app.title = "guardian"
-app.description = "XXX"
 
 api = FastAPI(root_path="/api")
 api.title = "guardian api"
-api.description = "XXX"
+
 
 api.include_router(llm_router.router, prefix="/openai")
-
 
 app.mount("/api", api, name="api")
 api.include_router(auth_router.router, prefix="/auth")
