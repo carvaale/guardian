@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "tailwind-scrollbar";
 import img from "../../assets/default-pfp.png";
 import axios from "axios"; 
+import { set } from "zod";
 
 const Chat = () => {
   interface Conversation {
@@ -50,7 +51,7 @@ const Chat = () => {
           max_tokens: 50,
           temperature: 1.0
         });
-        const botMessageReturn = response.data.generated_response; // Assuming API returns bot message in the format { botMessage: "Bot response message" }
+        const botMessageReturn = response.data.openai_response; // Assuming API returns bot message in the format { botMessage: "Bot response message" }
         console.log(botMessageReturn)
         setValue("");
         console.log(response)
@@ -141,9 +142,6 @@ const Chat = () => {
             onKeyDown={handleKeyDown}
             ref={inputRef}
           />
-          <button className="w-1/4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:bg-blue-700 transition duration-500 rounded-md text-white">
-            Send
-          </button>
         </div>
       </div>
     </div>

@@ -24,16 +24,16 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Route>
 
-        <Route element={<ProtectedLayout />}>
+        {/* <Route element={<ProtectedLayout />}> */}
           <Route path="/pii_identifier" element={<PiiIdentifier />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/data_leak" element={<DataLeakAnalytics />} />
           <Route path="/chat" element={<ChatBotPage />} />
-        </Route>
+        {/* </Route> */}
 
-        <Route element={<AdminLayout />}>
+        {/* <Route element={<AdminLayout />}> */}
           <Route path="/admin_console" element={<AdminConsole />} />
-        </Route>
+        {/* </Route> */}
       </Route>
     </Routes>
   );

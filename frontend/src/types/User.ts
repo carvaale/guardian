@@ -3,7 +3,7 @@ type User = {
   email: string;
   organization?: string;
   role: "user" | "admin";
-  authToken?: string;
+  access_token?: string;
 };
 
 export default User;
