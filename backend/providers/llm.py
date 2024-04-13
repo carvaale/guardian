@@ -101,6 +101,6 @@ class OpenAIWrapper:
         )
         openai_response = openai_response.choices[0].message.content
 
-        self._save_to_db(openai_response, userId)
+        # self._save_to_db(openai_response, userId)
 
         return {"openai_response": openai_response}
