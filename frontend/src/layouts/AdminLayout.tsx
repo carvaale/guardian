@@ -10,11 +10,7 @@ export const AdminLayout = () => {
   } else if (!user) {
     return <Navigate to="/login" />;
   }
-
-  if (user) {
-    console.log(user);
-    console.log(user.role);
-  }
+  console.log(user)
 
   return user?.role === "admin" ? <Outlet /> : <Navigate to="/" />;
 };

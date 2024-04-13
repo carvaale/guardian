@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 const SignupSchema = z
   .object({
+    username: z.string().min(1, "Username is required"),
     email: z.string().min(1, "Email is required").email(),
     password: z.string().min(1, "Password is required"),
     confirmPassword: z.string().min(1, "Please confirm your password"),
@@ -92,6 +93,16 @@ export default function RegisterComponent() {
               {errors.email && (
                 <span className="text-red-500">{errors.email.message}</span>
               )}
+              <input
+                className={`w-full rounded-md border border-gray-300 px-3 py-2 text-sm`}
+                placeholder="username"
+                type="username"
+                {...register("username")}
+              />
+              {errors.username && (
+                <span className="text-red-500">{errors.username.message}</span>
+              )}
+
               <input
                 className={`w-full rounded-md border border-gray-300 px-3 py-2 text-sm`}
                 placeholder="Password"

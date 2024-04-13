@@ -58,11 +58,12 @@ export const useAuth = () => {
         .post(
           `${AUTH_URL}/signup`,
           {
-            username: userInfo.email,
+            email: userInfo.email,
             password: userInfo.password,
+            username: userInfo.username,
           },
           {
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            headers: { "Content-Type": "application/json" },
           }
         )
         .then((response) => {

@@ -1,7 +1,5 @@
 import "./index.css";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Login from "./pages/authentication/Login";
-import Register from "./pages/authentication/Register";
 import AdminConsole from "./pages/AdminConsole";
 import { AdminLayout } from "./layouts/AdminLayout";
 import AuthLayout from "./layouts/AuthLayout";
@@ -10,8 +8,10 @@ import ChatBotPage from "./pages/ChatBotPage";
 import { DataLeakAnalytics } from "./pages/DataLeakAnalytics";
 import PiiIdentifier from "./pages/PiiIdentifier";
 import Settings from "./pages/Settings";
-import ForgotPassword from "./pages/authentication/ForgotPassword";
 import RootLayout from "./layouts/RootLayout";
+import ForgotPassword from "./pages/Authentication/ForgotPassword";
+import Login from "./pages/Authentication/Login";
+import Register from "./pages/Authentication/Register";
 
 function App() {
   return (
