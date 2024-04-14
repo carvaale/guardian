@@ -10,6 +10,7 @@ from backend.routers.auth_router import LoginResponse
 from backend.utils.anonymizer import Anonymizer
 from backend.utils.pii_scrubber import PIIScrubber
 from backend.utils.user_info import UserInfo
+from backend.utils.save_db import SaveToDB
 
 
 class OpenAIWrapper:
@@ -44,23 +45,7 @@ class OpenAIWrapper:
             temperature=temperature,
         )
 
-    # Move this to a util
-    def _save_to_db(self, response: str, uId: int) -> None:
-        """Save the response to the database.
-
-        :param response: The response to save.
-        :type response: str
-        :param uId: The user ID.
-        :type uId: int
-        :return: None
-        :rtype: None
-        """
-        current_time = datetime.utcnow().strftime("%H:%M")
-        openai_response = OpenAIChat(
-            response=response.content, user_id=uId, timestamp=current_time
-        )
-        self.db.query(OpenAIChat).insert(openai_response)
-        self.db.commit()
+   
 
     def generate(
         self,
@@ -91,6 +76,7 @@ class OpenAIWrapper:
 
         scrubber = PIIScrubber()
         user_pii = self.db.query(Users).filter(Users.id == userId).first().pii
+        pre_scrubbed_prompt = prompt
         prompt = scrubber.scrub_input(prompt=prompt, user_defined_pii=user_pii)
 
         anonymizer = Anonymizer()
@@ -99,8 +85,10 @@ class OpenAIWrapper:
         openai_response = self._send_openai_request(
             model, prompt, max_tokens, temperature
         )
+        
         openai_response = openai_response.choices[0].message.content
 
-        # self._save_to_db(openai_response, userId)
+        save = SaveToDB(self.db)
+        save._save_to_db(openai_response, userId,pre_scrubbed_prompt)
 
         return {"openai_response": openai_response}

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.routers import admin_router, auth_router, llm_router, pii_router
+from backend.routers import admin_router, auth_router, llm_router, pii_router, analytics_router
 
 app = FastAPI()
 app.title = "guardian"
@@ -15,6 +15,7 @@ api.include_router(llm_router.router, prefix="/openai")
 api.include_router(auth_router.router, prefix="/auth")
 api.include_router(admin_router.router, prefix="/admin")
 api.include_router(pii_router.router, prefix="/pii")
+api.include_router(analytics_router.router, prefix="/data_leak")
 
 
 # Allow Front-end Origin in local development

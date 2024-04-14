@@ -1,47 +1,53 @@
 import axios from "axios";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import { API_URL } from "../constants/constants";
+import { Record } from "../types/Record";
 import Banner from "./components/Banner";
+
+
+
 export const DataLeakAnalytics = () => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [keyword, setKeyword] = useState("");
-  const [piiSearchResults, setPiiSearchResults] = useState<string[]>([]);
+  const [piiSearchResults, setPiiSearchResults] = useState<Record[]>([]);
+
+  
+  const AUTH_URL = API_URL + "/api/data_leak";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Start Time: ", startTime);
-    console.log("End Time: ", endTime);
-    axios
-      .post("API_URL", { startTime, endTime })
-      .then((response) => {
-        const piiRecords: string[] = response.data;
-        if (piiRecords.length > 0) {
-          setPiiSearchResults(piiRecords);
+
+    axios.post(`${AUTH_URL}/find_leak`, {
+      startTime: startTime,
+      endTime: endTime,
+      keyword: keyword
+  }, {
+      headers: { 'Content-Type': 'application/json' }
+  })
+      .then((response)  => {
+        console.log("Response data", response.data);
+        if (response.data.length > 0) {
+          setPiiSearchResults(response.data);
+          console.log("piiSearchResults",piiSearchResults)
         } else {
           setPiiSearchResults([]);
         }
+
       })
       .catch((error) => {
         console.error(error);
       });
-    //only uncomment the 3 lines below if you wanna test out what leaked records would look like.
-    // const dummyApiResponse = generateDummyApiResponse();
-    // const filteredRecords = dummyApiResponse.filter(record => record.includes(keyword));
-    // setPiiSearchResults(filteredRecords);
-  };
-
-  //below function is for testing purposes only. gets dummy response of what leaked records would look like.
-  // const generateDummyApiResponse = () => {
-  //     const randomRecords = Math.floor(Math.random() * 5) + 1;
-  //     const dummyRecords: string[] = []; // Array to hold dummy records
-
-  //     for (let i = 0; i < randomRecords; i++) {
-  //       dummyRecords.push(`Dummy PII Record ${i + 1} - Contains keyword: ${keyword}`);
-  //     }
-
-  //     return dummyRecords;
-  //   };
+    }
+    
+    useEffect(() => {
+      if (piiSearchResults.length > 0) {
+        console.log("Leaked records found:", piiSearchResults.length);
+      } else {
+        console.log("No leaks found.");
+      }
+    }, [piiSearchResults]); // Dependency array ensures this runs after piiSearchResults updates
+    
 
   return (
     <>
@@ -76,6 +82,7 @@ export const DataLeakAnalytics = () => {
                 <input
                   name="start"
                   type="time"
+                  step="60"
                   className="border-2"
                   value={startTime}
                   onChange={(e) => setStartTime(e.target.value)}
@@ -118,14 +125,19 @@ export const DataLeakAnalytics = () => {
                   <thead>
                     <tr className="bg-red-200">
                       <th className="border p-2">Record #</th>
-                      <th className="border p-2">Record</th>
+                      <th className="border p-2">User ID</th>
+                      <th className="border p-2">Leaked Keyword</th>
+                      <th className="border p-2">Time Leaked</th>
+                      
                     </tr>
                   </thead>
                   <tbody>
                     {piiSearchResults.map((record, index) => (
                       <tr key={index} className="bg-red-100">
                         <td className="border p-2">{index + 1}</td>
-                        <td className="border p-2">{record}</td>
+                        <td className="border p-2">{record.user_id}</td>
+                        <td className="border p-2">{record.response}</td>
+                        <td className="border p-2">{record.timestamp}</td>
                       </tr>
                     ))}
                   </tbody>
